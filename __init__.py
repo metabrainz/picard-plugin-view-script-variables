@@ -13,6 +13,7 @@ from picard.plugin3.api import (
     t_,
 )
 from picard.tags import preserved_tag_names
+from picard.util import iter_files_from_objects
 
 from .ui_variables_dialog import Ui_VariablesDialog
 
@@ -30,7 +31,7 @@ class ViewVariables(BaseAction):
 
     def callback(self, objs):
         obj = objs[0]
-        files = self.api.tagger.get_files_from_objects(objs)
+        files = list(iter_files_from_objects(objs))
         if files:
             obj = files[0]
         dialog = ViewVariablesDialog(obj, api=self.api)

@@ -12,6 +12,7 @@ Display a dialog box listing the metadata tags and variables for the track / fil
 This allows you to see metadata variables beginning with "~" which are not normally visible in the metadata
 pane of the main Picard window, which can be useful when you are writing tagging or file naming scripts.
 """
+homepage = "https://github.com/metabrainz/picard-plugin-view-script-variables"
 report_bugs_to = "https://tickets.metabrainz.org/issues/?filter=13410"
 
 [name_i18n]

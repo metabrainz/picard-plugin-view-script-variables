@@ -7,3 +7,14 @@
 "ui.title_file" = "Datei: %s"
 "ui.title_track" = "Track: %s %s"
 "ui.title_variables" = "Variablen"
+"manifest.description" = "Zeigt ein Dialogfenster mit den Metadaten-Tags und Variablen für den Titel/die Datei an."
+"manifest.long_description" = "Zeigt ein Dialogfenster mit den Metadaten-Tags und Variablen für den Titel/die Datei an.\n\nDadurch können Metadatenvariablen eingesehen werden, die mit „~“ beginnen und normalerweise im Metadatenbereich des Picard-Hauptfensters nicht sichtbar sind. Dies kann beim Schreiben von Skripten zum Taggen oder Benennen von Dateien nützlich sein."
+"manifest.name" = "Skriptvariablen anzeigen"
+"qt.VariablesDialog.header.label.value" = "Wert"
+"qt.VariablesDialog.header.label.variable" = "Variable"
+"ui.tooltip" = "Für Details doppelklicken"
+"ui.type_error" = "Unbekannter Wertetyp."
+
+["ui.details.window.title"]
+one = "%{tag_name}%-Wert"
+other = "%{tag_name}%-Werte"

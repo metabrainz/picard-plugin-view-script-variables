@@ -1,1 +1,2 @@
+ignore = ["N999"]
 exclude = ["ui_*.py"]

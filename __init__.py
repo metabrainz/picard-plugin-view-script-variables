@@ -1,9 +1,5 @@
-# -*- coding: utf-8 -*-
-
 from collections import namedtuple
 from enum import IntEnum
-
-from PyQt6 import QtCore, QtWidgets
 
 from picard.plugin3.api import (
     BaseAction,
@@ -14,9 +10,9 @@ from picard.plugin3.api import (
 )
 from picard.tags import preserved_tag_names
 from picard.util import iter_files_from_objects
+from PyQt6 import QtCore, QtWidgets
 
 from .ui_variables_dialog import Ui_VariablesDialog
-
 
 TagValue = namedtuple("TagValue", "value type")
 
@@ -34,12 +30,12 @@ class ViewVariables(BaseAction):
         files = list(iter_files_from_objects(objs))
         if files:
             obj = files[0]
-        dialog = ViewVariablesDialog(obj, api=self.api)
+        dialog = ViewVariablesDialog(obj, self.api)
         dialog.exec()
 
 
 class ViewVariableDetails(QtWidgets.QDialog):
-    def __init__(self, name: str, data: TagValue, parent=None, api: PluginApi = None):
+    def __init__(self, name: str, data: TagValue, api: PluginApi, parent=None):
         super().__init__(parent)
         self.api = api
         self.name = name
@@ -53,7 +49,7 @@ class ViewVariableDetails(QtWidgets.QDialog):
             "%{tag_name}% value",
             "%{tag_name}% values",
             self.type,
-            tag_name=self.name
+            tag_name=self.name,
         )
 
         # Set window width to display full tag name without elipses if possible (within reason)
@@ -62,7 +58,7 @@ class ViewVariableDetails(QtWidgets.QDialog):
         # Adjust window width for text line lengths (within reason)
         if self.type == ValueTypes.SINGLE:
             line_length = 0
-            for line in self.value.split('\n'):
+            for line in self.value.split("\n"):
                 line_length = max(line_length, len(line))
             window_width = min(1000, max(window_width, line_length * 10 + 100))
 
@@ -79,14 +75,22 @@ class ViewVariableDetails(QtWidgets.QDialog):
             content.addItems(self.value)
         else:
             content = QtWidgets.QScrollArea()
-            content.setSizePolicy(QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Preferred)
+            content.setSizePolicy(
+                QtWidgets.QSizePolicy.Policy.Expanding,
+                QtWidgets.QSizePolicy.Policy.Preferred,
+            )
             text = QtWidgets.QLabel()
-            text.setSizePolicy(QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Preferred)
+            text.setSizePolicy(
+                QtWidgets.QSizePolicy.Policy.Expanding,
+                QtWidgets.QSizePolicy.Policy.Preferred,
+            )
 
             # Don't wordwrap because this results in unnecessary line splits in Qt.  Let QScrollArea handle long line display.
             text.setWordWrap(False)
 
-            text.setTextInteractionFlags(QtCore.Qt.TextInteractionFlag.TextSelectableByMouse)
+            text.setTextInteractionFlags(
+                QtCore.Qt.TextInteractionFlag.TextSelectableByMouse
+            )
             text.setText(
                 self.value
                 if self.type == ValueTypes.SINGLE
@@ -98,7 +102,7 @@ class ViewVariableDetails(QtWidgets.QDialog):
 
 
 class ViewVariablesDialog(QtWidgets.QDialog):
-    def __init__(self, obj, parent=None, api: PluginApi = None):
+    def __init__(self, obj, api: PluginApi, parent=None):
         super().__init__(parent)
         self.api = api
         self.separator_rows = set()
@@ -107,14 +111,14 @@ class ViewVariablesDialog(QtWidgets.QDialog):
         self.ui.setupUi(self)
         font = self.ui.metadata_table.font()
         font.setBold(True)
-        self.ui.metadata_table.horizontalHeaderItem(0).setFont(font)
-        self.ui.metadata_table.horizontalHeaderItem(1).setFont(font)
-        self.ui.metadata_table.horizontalHeaderItem(0).setText(
-            self.api.tr("ui.header0", "Variable")
-        )
-        self.ui.metadata_table.horizontalHeaderItem(1).setText(
-            self.api.tr("ui.header1", "Value")
-        )
+        header_col_1 = self.ui.metadata_table.horizontalHeaderItem(0)
+        assert header_col_1 is not None
+        header_col_2 = self.ui.metadata_table.horizontalHeaderItem(1)
+        assert header_col_2 is not None
+        header_col_1.setFont(font)
+        header_col_2.setFont(font)
+        header_col_1.setText(self.api.tr("ui.header0", "Variable"))
+        header_col_2.setText(self.api.tr("ui.header1", "Value"))
         self.ui.buttonBox.rejected.connect(self.reject)
         metadata = obj.metadata
         if isinstance(obj, File):
@@ -137,11 +141,13 @@ class ViewVariablesDialog(QtWidgets.QDialog):
         keys = metadata.keys()
         keys = sorted(
             keys,
-            key=lambda key: "0" + key
-            if key in self.PRESERVED_TAGS and key.startswith("~")
-            else "1" + key
-            if key.startswith("~")
-            else "2" + key,
+            key=lambda key: (
+                "0" + key
+                if key in self.PRESERVED_TAGS and key.startswith("~")
+                else "1" + key
+                if key.startswith("~")
+                else "2" + key
+            ),
         )
         media = hidden = album = False
         table = self.ui.metadata_table
@@ -196,7 +202,7 @@ class ViewVariablesDialog(QtWidgets.QDialog):
                 value_item.setText(value)
 
     def add_separator_row(self, table, i, title):
-        key_item, value_item = self.get_table_items(table, i)
+        key_item, _value_item = self.get_table_items(table, i)
         font = key_item.font()
         font.setBold(True)
         key_item.setFont(font)
@@ -219,13 +225,15 @@ class ViewVariablesDialog(QtWidgets.QDialog):
     def show_details(self, row: int, column: int):
         if row in self.separator_rows:
             return
+        item_col_1 = self.ui.metadata_table.item(row, 0)
+        assert item_col_1 is not None
+        item_col_2 = self.ui.metadata_table.item(row, 1)
+        assert item_col_2 is not None
         dialog = ViewVariableDetails(
-            name=self.ui.metadata_table.item(row, 0).text(),
-            data=self.ui.metadata_table.item(row, 1).data(
-                QtCore.Qt.ItemDataRole.UserRole
-            ),
-            parent=self,
+            name=item_col_1.text(),
+            data=item_col_2.data(QtCore.Qt.ItemDataRole.UserRole),
             api=self.api,
+            parent=self,
         )
         dialog.exec()
 

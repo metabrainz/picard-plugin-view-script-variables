@@ -7,3 +7,14 @@
 "ui.title_file" = "Fichier : %s"
 "ui.title_track" = "Piste : %s %s"
 "ui.title_variables" = "Variables"
+"manifest.description" = "Afficher une boîte de dialogue répertoriant les balises de métadonnées et les variables associées à la piste / au fichier."
+"manifest.long_description" = "Affiche une boîte de dialogue répertoriant les balises de métadonnées et les variables associées à la piste ou au fichier.\n\nCela vous permet de visualiser les variables de métadonnées commençant par « ~ », qui ne sont normalement pas visibles dans le volet des métadonnées de la fenêtre principale de Picard, ce qui peut s'avérer utile lorsque vous écrivez des scripts de balisage ou de nommage de fichiers."
+"manifest.name" = "Afficher les variables du script"
+"qt.VariablesDialog.header.label.value" = "Valeur"
+"qt.VariablesDialog.header.label.variable" = "Variable"
+"ui.tooltip" = "Double-cliquez pour plus de détails"
+"ui.type_error" = "Type de valeur inconnu."
+
+["ui.details.window.title"]
+one = "Valeur de %{tag_name}%"
+other = "Valeurs de %{tag_name}%"

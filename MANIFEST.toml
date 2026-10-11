@@ -16,25 +16,17 @@ homepage = "https://github.com/metabrainz/picard-plugin-view-script-variables"
 report_bugs_to = "https://tickets.metabrainz.org/issues/?filter=13410"
 
 [name_i18n]
-de = "Script-Variablen anzeigen"
+de = "Skriptvariablen anzeigen"
 fr = "Afficher les variables du script"
+zh_CN = "查看脚本变量"
 
 [description_i18n]
-de = "Zeigen Sie ein Dialogfeld an, in dem die Metadaten-Tags und Variablen für den Titel/die Datei aufgelistet sind."
-fr = "Affichez une boîte de dialogue répertoriant les balises de métadonnées et les variables pour la piste/le fichier."
+de = "Zeigt ein Dialogfenster mit den Metadaten-Tags und Variablen für den Titel/die Datei an."
+fr = "Afficher une boîte de dialogue répertoriant les balises de métadonnées et les variables associées à la piste / au fichier."
+zh_CN = "显示一个对话框，列出音轨 / 文件的元数据标签和变量。"
 
 [long_description_i18n]
-de = """
-Zeigt ein Dialogfeld mit den Metadaten-Tags und Variablen für den Titel/die Datei an.
+de = "Zeigt ein Dialogfenster mit den Metadaten-Tags und Variablen für den Titel/die Datei an.\n\nDadurch können Metadatenvariablen eingesehen werden, die mit „~“ beginnen und normalerweise im Metadatenbereich des Picard-Hauptfensters nicht sichtbar sind. Dies kann beim Schreiben von Skripten zum Taggen oder Benennen von Dateien nützlich sein."
 
-Dadurch können Sie Metadatenvariablen sehen, die mit „~“ beginnen und normalerweise im Metadatenbereich des
-Picard-Hauptfensters nicht sichtbar sind. Dies kann beim Schreiben von Skripten zum Taggen oder Benennen von Dateien nützlich sein.
-"""
-
-fr = """
-Affichez une boîte de dialogue répertoriant les balises et variables de métadonnées pour la piste/le fichier.
-
-Cela vous permet de voir les variables de métadonnées commençant par « ~ » qui ne sont normalement pas visibles dans le volet
-des métadonnées de la fenêtre principale de Picard, ce qui peut être utile lorsque vous écrivez des scripts de balisage ou de
-nommage de fichiers.
-"""
+fr = "Affiche une boîte de dialogue répertoriant les balises de métadonnées et les variables associées à la piste ou au fichier.\n\nCela vous permet de visualiser les variables de métadonnées commençant par « ~ », qui ne sont normalement pas visibles dans le volet des métadonnées de la fenêtre principale de Picard, ce qui peut s'avérer utile lorsque vous écrivez des scripts de balisage ou de nommage de fichiers."
+zh_CN = "显示一个对话框，列出音轨 / 文件的元数据标签和变量。\n\n这允许您查看以 \"~\" 开头的元数据变量，这些变量通常在主 Picard 窗口的元数据窗格中不可见，这在您编写标记或文件命名脚本时可能很有用。"
